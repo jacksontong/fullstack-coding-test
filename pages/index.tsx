@@ -1,6 +1,6 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import DynamicText from "../components/DynamicText";
+import DynamicText from "components/DynamicText";
 import { Input } from "@chakra-ui/react";
 import { useRef } from "react";
 
