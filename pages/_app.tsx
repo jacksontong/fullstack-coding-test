@@ -1,7 +1,8 @@
 import firebase from "firebase/app";
+import "firebase/auth";
+import { FirebaseAuthProvider } from "@react-firebase/auth";
 import { ChakraProvider } from "@chakra-ui/react";
 import "../styles/globals.css";
-import "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD2AaEGYFZ0va6ZI8RKKX7ryXwLsaj21jM",
@@ -12,14 +13,14 @@ const firebaseConfig = {
   messagingSenderId: "507862495192",
   appId: "1:507862495192:web:2054982e463765437dccad",
 };
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
 
 const MyApp = ({ Component, pageProps }) => {
   return (
-    <ChakraProvider>
-      <Component {...pageProps} />
-    </ChakraProvider>
+    <FirebaseAuthProvider {...firebaseConfig} firebase={firebase}>
+      <ChakraProvider>
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </FirebaseAuthProvider>
   );
 };
 
