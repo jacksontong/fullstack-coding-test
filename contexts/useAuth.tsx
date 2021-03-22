@@ -20,7 +20,7 @@ export const ProvideAuth: React.FC = ({ children }) => {
 export const useAuth = () => useContext(authContext);
 
 function useProvideAuth() {
-  const [user, setUser] = useState<firebase.User>(null);
+  const [user, setUser] = useState<firebase.User | boolean>(null);
 
   // Subscribe to user on mount
   // Because this sets state in the callback it will cause any ...
@@ -28,7 +28,7 @@ function useProvideAuth() {
   // ... latest auth object.
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
-      setUser(user);
+      setUser(user ? user : false);
     });
 
     return () => unsubscribe();
@@ -65,7 +65,7 @@ function useProvideAuth() {
      */
     async signout() {
       await firebase.auth().signOut();
-      setUser(null);
+      setUser(false);
     },
   };
 }

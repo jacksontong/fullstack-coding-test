@@ -3,11 +3,11 @@ import styles from "../styles/Home.module.css";
 import DynamicText from "components/DynamicText";
 import { Button, Input, useToast } from "@chakra-ui/react";
 import { useRef } from "react";
-import { useAuth } from "contexts/useAuth";
 import { useRouter } from "next/router";
+import useRequireAuth from "hooks/useRequireAuth";
 
 const Home = () => {
-  const auth = useAuth();
+  const auth = useRequireAuth();
   const router = useRouter();
   const toast = useToast();
 
@@ -19,6 +19,10 @@ const Home = () => {
     console.log(e.target.value);
     ref.current.changeValue(e.target.value);
   };
+
+  if (!auth) {
+    return <p>Loading...</p>;
+  }
 
   return (
     <div className={styles.container}>
