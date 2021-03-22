@@ -3,6 +3,7 @@ import "firebase/auth";
 import { FirebaseAuthProvider } from "@react-firebase/auth";
 import { ChakraProvider } from "@chakra-ui/react";
 import "../styles/globals.css";
+import { ProvideAuth } from "contexts/useAuth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyD2AaEGYFZ0va6ZI8RKKX7ryXwLsaj21jM",
@@ -17,9 +18,11 @@ const firebaseConfig = {
 const MyApp = ({ Component, pageProps }) => {
   return (
     <FirebaseAuthProvider {...firebaseConfig} firebase={firebase}>
-      <ChakraProvider>
-        <Component {...pageProps} />
-      </ChakraProvider>
+      <ProvideAuth>
+        <ChakraProvider>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </ProvideAuth>
     </FirebaseAuthProvider>
   );
 };

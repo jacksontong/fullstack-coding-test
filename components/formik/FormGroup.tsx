@@ -1,6 +1,6 @@
 import { useField, FieldHookConfig } from "formik";
 import React, { InputHTMLAttributes } from "react";
-import { FormErrorMessage, FormLabel, FormControl, Input, Button } from "@chakra-ui/react";
+import { FormErrorMessage, FormLabel, FormControl, Input } from "@chakra-ui/react";
 
 type Props = FieldHookConfig<string> &
   InputHTMLAttributes<HTMLInputElement> & {

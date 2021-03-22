@@ -5,11 +5,14 @@ import styles from "../styles/Home.module.css";
 import Head from "next/head";
 import { Button, useToast, VStack } from "@chakra-ui/react";
 import * as Yup from "yup";
-import firebase from "firebase";
 import Link from "next/link";
+import { useAuth } from "contexts/useAuth";
+import { useRouter } from "next/router";
 
 const Signup = () => {
   const toast = useToast();
+  const auth = useAuth();
+  const router = useRouter();
 
   return (
     <div className={styles.container}>
@@ -26,13 +29,12 @@ const Signup = () => {
           initialValues={{ email: "", password: "" }}
           onSubmit={async ({ email, password }) => {
             try {
-              const response = await firebase.auth().createUserWithEmailAndPassword(email, password);
-              console.log(response);
+              await auth.signup(email, password);
+              router.push("/");
             } catch (error) {
               toast({
                 status: "error",
                 title: error.message,
-                position: "bottom-right",
               });
             }
           }}>
