@@ -21,6 +21,7 @@ export const useAuth = () => useContext(authContext);
 
 function useProvideAuth() {
   const [user, setUser] = useState<firebase.User | boolean>(null);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   // Subscribe to user on mount
   // Because this sets state in the callback it will cause any ...
@@ -29,6 +30,12 @@ function useProvideAuth() {
   useEffect(() => {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
       setUser(user ? user : false);
+
+      if (user) {
+        user.getIdTokenResult().then((idTokenResult) => {
+          setIsAdmin(idTokenResult.claims.admin);
+        });
+      }
     });
 
     return () => unsubscribe();
@@ -36,6 +43,7 @@ function useProvideAuth() {
 
   return {
     user,
+    isAdmin,
     /**
      * Login an user by email and password
      * @param email
