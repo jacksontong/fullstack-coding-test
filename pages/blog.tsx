@@ -7,11 +7,12 @@ import _ from "lodash";
 import { SimpleGrid, GridItem } from "@chakra-ui/react";
 import PostModal from "components/PostModal";
 import Nav from "components/Nav";
+import { Post } from "api";
 
 const Blog = () => {
   const [posts, setPosts] = useImmer({
     allIds: [] as string[],
-    byId: {} as { [k: string]: any },
+    byId: {} as { [k: string]: Post },
   });
 
   type PostModalHandle = React.ElementRef<typeof PostModal>;

@@ -10,8 +10,7 @@ import {
   useDisclosure,
   Button,
 } from "@chakra-ui/react";
-
-type Post = { [k: string]: any };
+import { Post } from "api";
 
 interface PostModalHandle {
   open: () => void;
