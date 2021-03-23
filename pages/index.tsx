@@ -5,6 +5,7 @@ import { Button, Input, useToast } from "@chakra-ui/react";
 import { useRef } from "react";
 import { useRouter } from "next/router";
 import useRequireAuth from "hooks/useRequireAuth";
+import Nav from "components/Nav";
 
 const Home = () => {
   const auth = useRequireAuth();
@@ -30,6 +31,8 @@ const Home = () => {
         <title>Coding Test</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <Nav />
 
       <main className={styles.main}>
         <DynamicText ref={ref} />

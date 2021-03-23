@@ -6,6 +6,7 @@ import { useImmer } from "use-immer";
 import _ from "lodash";
 import { SimpleGrid, GridItem } from "@chakra-ui/react";
 import PostModal from "components/PostModal";
+import Nav from "components/Nav";
 
 const Blog = () => {
   const [posts, setPosts] = useImmer({
@@ -39,6 +40,8 @@ const Blog = () => {
         <title>Blog</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <Nav />
 
       <main className={styles.main}>
         <SimpleGrid columns={4}>
