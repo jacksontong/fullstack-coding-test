@@ -1,4 +1,4 @@
-import { toast, VStack, Button, useToast } from "@chakra-ui/react";
+import { VStack, Button, useToast } from "@chakra-ui/react";
 import FormGroup from "components/formik/FormGroup";
 import { Formik, Form } from "formik";
 import styles from "../styles/Home.module.css";
