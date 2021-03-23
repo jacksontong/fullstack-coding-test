@@ -1,10 +1,11 @@
 import Head from "next/head";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styles from "../styles/Home.module.css";
 import firebase from "firebase";
 import { useImmer } from "use-immer";
 import _ from "lodash";
 import { SimpleGrid, GridItem } from "@chakra-ui/react";
+import PostModal from "components/PostModal";
 
 const Blog = () => {
   const [posts, setPosts] = useImmer({
@@ -12,7 +13,11 @@ const Blog = () => {
     byId: {} as { [k: string]: any },
   });
 
+  type PostModalHandle = React.ElementRef<typeof PostModal>;
+  const ref = useRef<PostModalHandle>();
+
   useEffect(() => {
+    // read posts realtime
     const unsubscribe = firebase
       .firestore()
       .collection("posts")
@@ -41,7 +46,13 @@ const Blog = () => {
             const post = posts.byId[id];
 
             return (
-              <GridItem key={id}>
+              <GridItem
+                key={id}
+                onClick={() => {
+                  const modal = ref.current;
+                  modal.setPost(post);
+                  modal.open();
+                }}>
                 <div className={styles.grid}>
                   <div className={styles.card}>
                     <h3>{post.title}</h3>
@@ -52,6 +63,8 @@ const Blog = () => {
             );
           })}
         </SimpleGrid>
+
+        <PostModal ref={ref} />
       </main>
     </div>
   );
