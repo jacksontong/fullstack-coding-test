@@ -2,12 +2,16 @@ import { Box, HStack, Link } from "@chakra-ui/layout";
 import React from "react";
 import NextLink from "next/link";
 import { useAuth } from "contexts/useAuth";
+import { Button, toast, useToast } from "@chakra-ui/react";
+import router from "next/router";
 
 const Nav = () => {
-  const { isAdmin } = useAuth();
+  const { isAdmin, signout } = useAuth();
+  const toast = useToast();
+
   return (
     <nav>
-      <HStack spacing="4">
+      <HStack spacing="5">
         <Box>
           <Link as={NextLink} href="/">
             Index
@@ -27,6 +31,19 @@ const Nav = () => {
             </Link>
           </Box>
         )}
+
+        <Button
+          onClick={async () => {
+            await signout();
+            toast({
+              status: "warning",
+              title: "Goodbye.",
+            });
+            router.push("/signin");
+          }}
+          mt="3">
+          Logout
+        </Button>
       </HStack>
     </nav>
   );

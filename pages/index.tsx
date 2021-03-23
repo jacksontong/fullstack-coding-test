@@ -1,16 +1,13 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import DynamicText from "components/DynamicText";
-import { Button, Input, useToast } from "@chakra-ui/react";
+import { Input } from "@chakra-ui/react";
 import { useRef } from "react";
-import { useRouter } from "next/router";
 import useRequireAuth from "hooks/useRequireAuth";
 import Nav from "components/Nav";
 
 const Home = () => {
   const auth = useRequireAuth();
-  const router = useRouter();
-  const toast = useToast();
 
   // this will be inferred as `DynamicTextHandle`
   type DynamicTextHandle = React.ElementRef<typeof DynamicText>;
@@ -37,19 +34,6 @@ const Home = () => {
       <main className={styles.main}>
         <DynamicText ref={ref} />
         <Input onChange={onChange} />
-
-        <Button
-          onClick={async () => {
-            await auth.signout();
-            toast({
-              status: "warning",
-              title: "Goodbye.",
-            });
-            router.push("/signin");
-          }}
-          mt="3">
-          Logout
-        </Button>
       </main>
     </div>
   );
