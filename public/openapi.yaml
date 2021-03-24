@@ -1,0 +1,147 @@
+openapi: 3.0.1
+info:
+  title: Fullstack coding test API
+  contact:
+    name: Jackson Tong
+    email: tongtoan2704@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.0
+servers:
+  - url: https://o3j3kneopc.execute-api.ap-southeast-1.amazonaws.com/dev
+tags:
+  - name: post
+    description: Operations about post
+  - name: user
+    description: Operations about user
+paths:
+  /users:
+    post:
+      tags:
+        - user
+      description: Create new user profile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        200:
+          description: User profile created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+  /posts:
+    get:
+      tags:
+        - post
+      description: Get all posts
+      responses:
+        200:
+          description: Post created
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Post"
+    post:
+      tags:
+        - post
+      description: Create a new post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Post"
+      responses:
+        200:
+          description: Post created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+  /posts/{id}:
+    get:
+      tags:
+        - post
+      description: Get a post
+      parameters:
+        - name: id
+          in: path
+          description: ID of post
+          required: true
+          schema:
+            maximum: 10.0
+            minimum: 1.0
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: Get post success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Post"
+    patch:
+      tags:
+        - post
+      description: Update a post
+      parameters:
+        - name: id
+          in: path
+          description: ID of post
+          required: true
+          schema:
+            maximum: 10.0
+            minimum: 1.0
+            type: integer
+            format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Post"
+      responses:
+        200:
+          description: Post updated
+    delete:
+      tags:
+        - post
+      description: Delete a post
+      parameters:
+        - name: id
+          in: path
+          description: ID of post
+          required: true
+          schema:
+            maximum: 10.0
+            minimum: 1.0
+            type: integer
+            format: int64
+      responses:
+        200:
+          description: Post deleted
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        uid:
+          type: string
+          description: firebase uid
+        name:
+          type: string
+        dob:
+          type: string
+    Post:
+      type: object
+      properties:
+        title:
+          type: string
+        body:
+          type: string
+        image:
+          type: string

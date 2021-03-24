@@ -13,6 +13,12 @@ const Nav = () => {
     <nav>
       <HStack spacing="5">
         <Box>
+          <Link as={NextLink} href="/swagger">
+            Swagger UI
+          </Link>
+        </Box>
+
+        <Box>
           <Link as={NextLink} href="/">
             Index
           </Link>
