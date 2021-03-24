@@ -59,7 +59,11 @@ const Blog = () => {
                 <div className={styles.grid}>
                   <div className={styles.card}>
                     <h3>{post.title}</h3>
-                    <img src="https://via.placeholder.com/300" alt="placeholder" />
+                    <img
+                      src={post.image ? post.image : "https://via.placeholder.com/300"}
+                      width="300"
+                      alt="Post image"
+                    />
                   </div>
                 </div>
               </GridItem>

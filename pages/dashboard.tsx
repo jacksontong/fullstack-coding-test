@@ -86,7 +86,11 @@ const Dashboard = () => {
                   <Td>{i + 1}</Td>
                   <Td>{post.title}</Td>
                   <Td>
-                    <img src="https://via.placeholder.com/100" alt="placeholder" />
+                    <img
+                      src={post.image ? post.image : "https://via.placeholder.com/100"}
+                      width="100"
+                      alt="Post image"
+                    />
                   </Td>
                   <Td>
                     <HStack>
