@@ -1,12 +1,15 @@
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/modal";
-import { Button, FormControl, HStack, ModalCloseButton, useToast, VStack } from "@chakra-ui/react";
+import { Button, FormControl, HStack, Input, ModalCloseButton, useToast, VStack } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
-import React from "react";
+import React, { useRef } from "react";
 import FormGroup from "./formik/FormGroup";
 import { Editor } from "@tinymce/tinymce-react";
 import * as Yup from "yup";
 import { createPost, Post } from "api";
+import firebase from "firebase";
+import { useAuth } from "contexts/useAuth";
+import _ from "lodash";
 
 interface Props {
   onPostCreated?: (post: Post) => void;
@@ -15,6 +18,8 @@ interface Props {
 const NewPostModal: React.FC<Props> = ({ onPostCreated }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const toast = useToast();
+  const imageRef = useRef<HTMLInputElement>();
+  const auth = useAuth();
 
   return (
     <>
@@ -27,14 +32,25 @@ const NewPostModal: React.FC<Props> = ({ onPostCreated }) => {
 
         <ModalContent>
           <Formik
-            initialValues={{ title: "", body: "", image: "" }}
+            initialValues={{ title: "", body: "" }}
             validationSchema={Yup.object().shape({
               title: Yup.string().min(4).max(100).required(),
               body: Yup.string(),
             })}
             onSubmit={async (values) => {
+              const storageRef = firebase.storage().ref();
+
               try {
-                const { data: post } = await createPost(values);
+                let image = "";
+
+                if (imageRef.current.files[0]) {
+                  const fullpath = `images/${_.get(auth, "user.uid")}/${imageRef.current.files[0].name}`;
+                  // upload image to firebase storage
+                  const res = await storageRef.child(fullpath).put(imageRef.current.files[0]);
+                  image = await res.ref.getDownloadURL();
+                }
+
+                const { data: post } = await createPost({ ...values, image });
                 toast({
                   status: "success",
                   title: "Post saved.",
@@ -60,6 +76,11 @@ const NewPostModal: React.FC<Props> = ({ onPostCreated }) => {
                 <ModalBody>
                   <VStack alignItems="stretch" spacing="3">
                     <FormGroup label="Title" id="title" name="title" />
+
+                    <FormControl>
+                      <label htmlFor="image">Image</label>
+                      <Input ref={imageRef} id="image" type="file" accept="image/png, image/jpeg" multiple={false} />
+                    </FormControl>
 
                     <FormControl>
                       <label>Body</label>

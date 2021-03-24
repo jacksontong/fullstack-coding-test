@@ -9,6 +9,7 @@ import { useImmer } from "use-immer";
 import styles from "../styles/Home.module.css";
 import { Table, Thead, Tbody, Tr, Th, Td, Button, useToast, Spinner } from "@chakra-ui/react";
 import NewPostModal from "components/NewPostModal";
+import Nav from "components/Nav";
 
 const Dashboard = () => {
   const auth = useRequireAuth();
@@ -48,6 +49,8 @@ const Dashboard = () => {
         <title>Dashboard</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <Nav />
 
       <main className={styles.main}>
         <HStack justify="space-between" width="full">
