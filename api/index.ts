@@ -11,3 +11,7 @@ export const createUser = (user: { name: string; uid: string; dob: string }) => 
 export const fetchPosts = () => {
   return axios.get<Post[]>(`${BASE_URL}/posts`);
 };
+
+export const deletePost = (id: string) => {
+  return axios.delete(`${BASE_URL}/posts/${id}`);
+};
