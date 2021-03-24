@@ -10,6 +10,7 @@ import styles from "../styles/Home.module.css";
 import { Table, Thead, Tbody, Tr, Th, Td, Button, useToast, Spinner } from "@chakra-ui/react";
 import NewPostModal from "components/NewPostModal";
 import Nav from "components/Nav";
+import EditPostModal from "components/EditPostModal";
 
 const Dashboard = () => {
   const auth = useRequireAuth();
@@ -94,7 +95,14 @@ const Dashboard = () => {
                   </Td>
                   <Td>
                     <HStack>
-                      <Button colorScheme="teal">Edit</Button>
+                      <EditPostModal
+                        post={post}
+                        onPostUpdated={(updatedPost) => {
+                          setPosts((draft) => {
+                            draft.byId[id] = updatedPost;
+                          });
+                        }}
+                      />
                       <Button
                         colorScheme="red"
                         isLoading={isLoading}

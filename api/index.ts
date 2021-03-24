@@ -19,3 +19,7 @@ export const deletePost = (id: string) => {
 export const createPost = (post: Post) => {
   return axios.post<Post>(`${BASE_URL}/posts`, post);
 };
+
+export const updatePost = (id: number, post: Post) => {
+  return axios.patch(`${BASE_URL}/posts/${id}`, post);
+};
