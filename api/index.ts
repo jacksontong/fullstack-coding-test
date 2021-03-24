@@ -15,3 +15,7 @@ export const fetchPosts = () => {
 export const deletePost = (id: string) => {
   return axios.delete(`${BASE_URL}/posts/${id}`);
 };
+
+export const createPost = (post: Post) => {
+  return axios.post<Post>(`${BASE_URL}/posts`, post);
+};

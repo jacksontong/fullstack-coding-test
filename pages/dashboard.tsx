@@ -8,6 +8,7 @@ import React, { useEffect, useState } from "react";
 import { useImmer } from "use-immer";
 import styles from "../styles/Home.module.css";
 import { Table, Thead, Tbody, Tr, Th, Td, Button, useToast, Spinner } from "@chakra-ui/react";
+import NewPostModal from "components/NewPostModal";
 
 const Dashboard = () => {
   const auth = useRequireAuth();
@@ -49,7 +50,18 @@ const Dashboard = () => {
       </Head>
 
       <main className={styles.main}>
-        <Heading as="h1">Posts</Heading>
+        <HStack justify="space-between" width="full">
+          <Heading as="h1">Posts</Heading>
+
+          <NewPostModal
+            onPostCreated={(post) => {
+              setPosts((draft) => {
+                draft.allIds.unshift(post.id);
+                draft.byId[post.id] = post;
+              });
+            }}
+          />
+        </HStack>
 
         {isLoading && <Spinner />}
 

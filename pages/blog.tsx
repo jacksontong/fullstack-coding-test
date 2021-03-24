@@ -5,7 +5,7 @@ import firebase from "firebase";
 import { useImmer } from "use-immer";
 import _ from "lodash";
 import { SimpleGrid, GridItem } from "@chakra-ui/react";
-import PostModal from "components/PostModal";
+import PostModal, { PostModalHandle } from "components/PostModal";
 import Nav from "components/Nav";
 import { Post } from "api";
 
@@ -15,8 +15,7 @@ const Blog = () => {
     byId: {} as { [k: string]: Post },
   });
 
-  type PostModalHandle = React.ElementRef<typeof PostModal>;
-  const ref = useRef<PostModalHandle>();
+  const postModal = useRef<PostModalHandle>();
 
   useEffect(() => {
     // read posts realtime
@@ -53,7 +52,7 @@ const Blog = () => {
               <GridItem
                 key={id}
                 onClick={() => {
-                  const modal = ref.current;
+                  const modal = postModal.current;
                   modal.setPost(post);
                   modal.open();
                 }}>
@@ -68,7 +67,7 @@ const Blog = () => {
           })}
         </SimpleGrid>
 
-        <PostModal ref={ref} />
+        <PostModal ref={postModal} />
       </main>
     </div>
   );

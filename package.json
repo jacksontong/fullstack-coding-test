@@ -12,6 +12,7 @@
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
     "@react-firebase/auth": "^0.2.10",
+    "@tinymce/tinymce-react": "^3.11.1",
     "axios": "^0.21.1",
     "date-fns": "^2.19.0",
     "firebase": "^8.3.1",

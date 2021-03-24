@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import { Post } from "api";
 
-interface PostModalHandle {
+export interface PostModalHandle {
   open: () => void;
   setPost: (post: Post) => void;
 }
