@@ -37,7 +37,7 @@ const PostModal = forwardRef<PostModalHandle>((props, ref) => {
       <ModalContent>
         <ModalHeader>{post.title}</ModalHeader>
         <ModalCloseButton />
-        <ModalBody>{post.body}</ModalBody>
+        <ModalBody dangerouslySetInnerHTML={{ __html: post.body }} />
         <ModalFooter>
           <Button colorScheme="blue" mr={3} onClick={onClose}>
             Close
