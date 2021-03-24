@@ -97,8 +97,10 @@ const Dashboard = () => {
                       <Button colorScheme="teal">Edit</Button>
                       <Button
                         colorScheme="red"
+                        isLoading={isLoading}
                         onClick={async () => {
                           if (window.confirm("Are you sure to delete this post?")) {
+                            setIsLoading(true);
                             await deletePost(post.id);
                             setPosts((draft) => {
                               delete draft.byId[id];
@@ -109,6 +111,7 @@ const Dashboard = () => {
                               status: "success",
                               title: "Post deleted.",
                             });
+                            setIsLoading(false);
                           }
                         }}>
                         Delete
