@@ -70,6 +70,11 @@ const Blog = () => {
             );
           })}
         </SimpleGrid>
+        <p>
+          Lorem ipsum dolor sit amet consectetur, adipisicing elit. Fuga nobis pariatur tenetur laudantium incidunt
+          consequatur, saepe explicabo similique, nostrum voluptate unde ex magnam sapiente assumenda ad consequuntur,
+          inventore reiciendis. Animi!
+        </p>
 
         <PostModal ref={postModal} />
       </main>
